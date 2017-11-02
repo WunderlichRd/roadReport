@@ -1,0 +1,107 @@
+FORMAT: 1A
+
+# roadReport
+
+roadReport
+
+The roadReport API is an eGov initatitive that supports the reporting of road issues/conditions to municipalities.  Subscribers to this API can report issues, and receive a benefit for resolved issues.
+
+## Incidents Collection [/incidents]
+
+Incidents are reports of adverse road conditions reported by observers.  The incident is investigated and resolved if necessary by the public works department
+
+### List All Incidents [GET]
+
+API consumers can request all incidents, or they can pass GPS coordinates to get incidents for a particular location.
+
++ Response 200 (application/json)
+
+        [
+            {
+                "incidentID": "95e66495-989a-419c-9726-4269c57b4225",
+                "GPS": 
+                    {"north": "37.7831", 
+                     "west":  "122.4041"},
+                "locationDescription": "Moscone Center",
+                "reporterID": "b5664f41-1856-45f9-aa59-cdb95b9ba058",
+                "deviceID": "a7ccb882-4f9e-47ff-bbb4-b7959eea6d4d",
+                "numberOfReporters": 2,
+                "status": "SUBMITTED",
+                "dateResolved": "",
+                "incidentType": "Pothole",
+                "alarms": [
+                    {
+                        "type": "flc-visual-cue",
+                        "alarmCode": "flc-000302",
+                        "reportLoc": "https://images.oraclecloud.com/95e66495-989a-419c-9726-4269c57b4225",
+                        "level": "SEVERE"
+                    }, {
+                        "type": "susp-accel-cue",
+                        "alarmCode": "sus-00734",
+                        "reportLoc": "",
+                        "level": "SEVERE"
+                    }
+                ]
+            },
+            {
+                "incidentID": "a80c9164-4995-4f66-8020-2db4eba68998",
+                "GPS": {
+                    "north": "37.8080", 
+                    "west": "122.4177"},
+                "locationDescription": "Fisherman's Warf",
+                "reporterID": "b5664f41-1856-45f9-aa59-cdb95b9ba058",
+                "deviceID": "a7ccb882-4f9e-47ff-bbb4-b7959eea6d4d",
+                "numberOfReporters": 5,
+                "status": "RESOLVED",
+                "dateResolved": "2017-08-05T08:40:51.620Z",
+                "incidentType": "Streetlight Out",
+                "alarms": [
+                    {
+                        "type": "flc-visual-cue",
+                        "alarmCode": "flc-000302",
+                        "reportLoc": "https://images.oraclecloud.com/a80c9164-4995-4f66-8020-2db4eba68998",
+                        "level": "MINOR"
+                    }
+                ]
+            }
+        ]
+
+### Create a New Incident [POST]
+
+Devices can report incidents by calling this API providing the location, subscriber identification and incident information.
+
++ Request (application/json)
+
+        {
+            "GPS": 
+                {"north": "37.7831", 
+                "west":  "122.4041"},
+            "reporterID": "b5664f41-1856-45f9-aa59-cdb95b9ba058",
+            "deviceID": "a7ccb882-4f9e-47ff-bbb4-b7959eea6d4d",
+            "incidentType": "Pothole",
+            "alarms": [
+                {
+                    "type": "flc-visual-cue",
+                    "alarmCode": "flc-000302",
+                    "reportLoc": "https://images.oraclecloud.com/95e66495-989a-419c-9726-4269c57b4225",
+                    "level": "SEVERE"
+                }, {
+                    "type": "susp-accel-cue",
+                    "alarmCode": "sus-00734",
+                    "reportLoc": "",
+                    "level": "SEVERE"
+                }
+            ]
+        }
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /incidents/95e66495-989a-419c-9726-4269c57b4225
+
+    + Body
+
+            {
+                "incidentID": "95e66495-989a-419c-9726-4269c57b4225",
+                "status": "SUBMITTED"
+            }
