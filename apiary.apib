@@ -18,13 +18,11 @@ API consumers can request all incidents, or they can pass GPS coordinates to get
 
         [
             {
-                "incidentID": "95e66495-989a-419c-9726-4269c57b4225",
                 "location": {
                     "type": "Point",
                     "coordinates": [-122.4041,37.7831]},
                 "locationDescription": "Moscone Center",
                 "reporterID": "b5664f41-1856-45f9-aa59-cdb95b9ba058",
-                "deviceID": "a7ccb882-4f9e-47ff-bbb4-b7959eea6d4d",
                 "numberOfReporters": 2,
                 "status": "SUBMITTED",
                 "dateResolved": "",
@@ -50,7 +48,6 @@ API consumers can request all incidents, or they can pass GPS coordinates to get
                     "coordinates": [-122.4177,37.8080]},
                 "locationDescription": "Fisherman's Warf",
                 "reporterID": "b5664f41-1856-45f9-aa59-cdb95b9ba058",
-                "deviceID": "a7ccb882-4f9e-47ff-bbb4-b7959eea6d4d",
                 "numberOfReporters": 5,
                 "status": "RESOLVED",
                 "dateResolved": "2017-08-05T08:40:51.620Z",
@@ -72,27 +69,31 @@ Devices can report incidents by calling this API providing the location, subscri
 
 + Request (application/json)
 
-        {
-            "location": {
-                    "type": "Point",
-                    "coordinates": [-122.4041,37.7831]}, 
-            "reporterID": "b5664f41-1856-45f9-aa59-cdb95b9ba058",
-            "deviceID": "a7ccb882-4f9e-47ff-bbb4-b7959eea6d4d",
-            "incidentType": "Pothole",
-            "alarms": [
-                {
-                    "alarmType": "flc-visual-cue",
-                    "alarmCode": "flc-000302",
-                    "reportLoc": "https://images.oraclecloud.com/95e66495-989a-419c-9726-4269c57b4225",
-                    "level": "SEVERE"
-                }, {
-                    "alarmType": "susp-accel-cue",
-                    "alarmCode": "sus-00734",
-                    "reportLoc": "",
-                    "level": "SEVERE"
-                }
-            ]
-        }
+    + Headers
+
+            reporterID: b5664f41-1856-45f9-aa59-cdb95b9ba058
+    + Body
+    
+            {
+                "location": {
+                        "type": "Point",
+                        "coordinates": [-122.4041,37.7831]}, 
+                "incidentType": "Pothole",
+                "alarms": [
+                    {
+                        "alarmType": "flc-visual-cue",
+                        "alarmCode": "flc-000302",
+                        "reportLoc": "https://images.oraclecloud.com/95e66495-989a-419c-9726-4269c57b4225",
+                        "level": "SEVERE"
+                    }, {
+                        "alarmType": "susp-accel-cue",
+                        "alarmCode": "sus-00734",
+                        "reportLoc": "",
+                        "level": "SEVERE"
+                    }
+                ]
+            }
+            
 + Response 201 (application/json)
 
     + Headers
